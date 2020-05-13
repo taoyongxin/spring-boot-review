@@ -4,10 +4,7 @@ import com.soft1851.springbootjpa.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 
 import javax.annotation.Resource;
 
@@ -26,7 +23,7 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    void name() {
+    void insertUser() {
         User user = User.builder()
                 .userName("aaa")
                 .email("1427177855@qq.com")
@@ -127,5 +124,58 @@ class UserRepositoryTest {
                 .build();
         Optional<User> optionalUser = userRepository.findOne(Example.of(user1));
         log.info("单个查询结果: {}",optionalUser.orElse(null));
+    }
+
+    /**
+     * 测试已命名的查询 使用password查询数据
+     */
+    @Test
+    void findByPassword() {
+        List<User> userList = userRepository.findByPassword("999999");
+        System.out.println(userList);
+    }
+
+
+    /**
+     * 测试查询所有分页查询
+     * Sort，控制分页数据的排序，可以选择升序和降序。
+     * PageRequest，控制分页的辅助类，可以设置页码、每页的数据条数、排序等。
+     */
+    @Test
+    void findALL() {
+        int page = 1,size = 2;
+        Pageable pageable = PageRequest.of(page,size,Sort.Direction.DESC,"id");
+        Page<User> userList = userRepository.findAll(pageable);
+        Page<User> userByNickNameList = userRepository.findByNickName("nickName1",pageable);
+        System.out.println(userByNickNameList.getContent());
+        System.out.println(userList.getContent());
+    }
+
+    @Test
+    void findFirstByOrderByUserNameAsc() {
+        User user = userRepository.findFirstByOrderByUserNameAsc();
+        System.out.println(user);
+    }
+
+    @Test
+    void findTopByOrderByAgeDesc() {
+        User user = userRepository.findTopByOrderByAgeDesc();
+        System.out.println(user);
+    }
+
+    @Test
+    void getNumberOfElements() {
+        int page = 1,size = 2;
+        Pageable pageable = PageRequest.of(page,size,Sort.Direction.DESC,"id");
+        Page<User> userPage = userRepository.queryFirst10ByNickName("nickName1",pageable);
+        System.out.println(userPage.getNumberOfElements());
+    }
+
+    @Test
+    void findTop10ByNickName() {
+        int page = 1,size = 2;
+        Pageable pageable = PageRequest.of(page,size,Sort.Direction.DESC,"id");
+        List<User> userList = userRepository.findTop10ByNickName("nickName1",pageable);
+        System.out.println(userList);
     }
 }

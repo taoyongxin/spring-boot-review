@@ -25,6 +25,15 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * 除了使用 @Query 注解外，还可以预先定义好一些查询，并为其命名，然后在Repository 中添加相同命名的方法。
+ * 通过 @NamedQueries 注解可以定义多个命名 Query，@NamedQuery 的 name 属性定义了 Query 的名称，
+ * 注意加上 Entity 名称 . 作为前缀，query 属性定义查询语句。
+ */
+@NamedQueries({
+        @NamedQuery(name = "User.findByPassword",query = "select u from User u where u.password = ?1"),
+        @NamedQuery(name = "User.findByNickName",query = "select u from User u where u.nickName = ?1")
+})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
