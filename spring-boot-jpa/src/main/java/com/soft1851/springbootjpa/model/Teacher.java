@@ -1,9 +1,6 @@
 package com.soft1851.springbootjpa.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -16,20 +13,16 @@ import javax.persistence.*;
  **/
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer teacherId;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @Column(length = 128,nullable = true)
+    @Column(name = "teacher_name", nullable = false, length = 30)
     private String teacherName;
 
-    @Column(nullable = true)
-    private Integer clazzId;
-
-
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "clazz_id", referencedColumnName = "id")
+    private Clazz clazz;
 }

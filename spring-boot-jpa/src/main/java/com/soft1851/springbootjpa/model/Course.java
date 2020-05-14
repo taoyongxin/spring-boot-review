@@ -1,11 +1,10 @@
 package com.soft1851.springbootjpa.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author Tao
@@ -16,14 +15,16 @@ import javax.persistence.*;
  **/
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer courseId;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @Column(length = 128,nullable = true)
+    @Column(name = "course_name", nullable = false, length = 30)
     private String courseName;
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Student> studentList;
 }

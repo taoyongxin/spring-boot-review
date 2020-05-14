@@ -1,12 +1,10 @@
 package com.soft1851.springbootjpa.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Tao
@@ -17,27 +15,20 @@ import java.time.LocalDateTime;
  **/
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer studentId;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @Column(nullable = false)
-    private Integer clazzId;
-
-    @Column(length = 128,nullable = true)
+    @Column(name = "student_name", nullable = false, length = 30)
     private String studentName;
 
-    @Column(length = 128,nullable = true)
-    private String hometown;
+    @Column(name = "age", nullable = false, length = 30)
+    private Integer age;
 
-    @Column
-    private LocalDateTime birthday;
-
-//    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},optional = false)
-//    @JoinColumn(name = "clazz_id")
-//    private Clazz clazz;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courseList = new ArrayList<>();
 }

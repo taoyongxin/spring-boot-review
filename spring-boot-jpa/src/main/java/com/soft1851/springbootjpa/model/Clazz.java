@@ -1,11 +1,9 @@
 package com.soft1851.springbootjpa.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author Tao
@@ -16,20 +14,19 @@ import javax.persistence.*;
  **/
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Clazz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer clazzId;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @Column(length = 128,nullable = true)
+
+    @Column(name = "clazz_name", nullable = false, length = 20)
     private String clazzName;
 
-    @Column(nullable = true)
-    private Integer teacherId;
-//
-//    @OneToMany(mappedBy = "clazz",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    private List<Student> studentList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "clazz_id")
+    private List<Student> studentList;
 }
