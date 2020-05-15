@@ -1,7 +1,6 @@
 package com.soft1851.springboot.taskschedule.task;
 
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  * @Description TODO
  * @date 2020-05-14 19:50
  **/
-@Component
+//@Component
 public class Demo2 {
     private DateTimeFormatter dft = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
 
