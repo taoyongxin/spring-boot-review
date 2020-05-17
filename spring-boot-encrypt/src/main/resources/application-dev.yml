@@ -1,0 +1,37 @@
+spring:
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: 1427177855@qq.com
+    password: spuorqabsadnjbcd
+    default-encoding: UTF-8
+  application:
+    name: spring-boot-schedule
+  jpa:
+    database: mysql
+    show-sql: false
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: ENC(1VQFf0rjIarx3nsNf0TPMOsJJ2mKxfzc5C7TpTyv3f+OJVXkT8JMtM3+BQn1lvz0iErIw96LX2wlLfT0zmU2/uvepp7WnI/ynT2ayavdVRm0+N8JxzfSl08aznWrtF/BWbcnpdpe7s4VJAUCsWBPa6+8sE73ac+fBQt4aEoDO+M=)
+    username: ENC(wllhZ51fSaMZQ76l/hyGBg==)
+    password: ENC(iK5Y1mMrD379wFmME3F17Q==)
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      maximumPoolSize: 15
+      max-lifetime: 1800000
+      minimum-idle: 2
+      idle-timeout: 60000
+      connection-timeout: 30000
+# jasypt加密的密匙
+jasypt:
+  encryptor:
+    password: tyx000101
+#    password: Y6M9fAJQdU7jNp5MW
+
+
+
+
+

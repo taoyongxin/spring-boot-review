@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "jasypt.encryptor.ivGeneratorClassname",
+      "type": "java.lang.String",
+      "description": "Description for jasypt.encryptor.ivGeneratorClassname."
+  }
+] }
